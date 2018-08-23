@@ -1,7 +1,7 @@
 import re
 
-# takes in a test list to parse it
 
+# takes in a test list to parse it
 def parsetestlist(tests):
     _tests = [[] for j in range(256)]
     for test in tests:
@@ -11,5 +11,5 @@ def parsetestlist(tests):
         ntest['test'] = cre.match
         ntest['function'] = test['function']
         ntest['let'] = test['let']
-        _tests[ord(test['let'])].append ( ntest )
+        _tests[ord(test['let'])].append(ntest)
     return _tests

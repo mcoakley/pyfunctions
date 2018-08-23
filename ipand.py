@@ -1,5 +1,5 @@
 # Computes the bitwise AND of an IP address and Subnet mask
-def ipand ( ip, mask ):
+def ipand(ip, mask):
     ipparts = ip.split('.')
     mparts = mask.split('.')
     return "{}.{}.{}.{}".format(int(ipparts[0]) & int(mparts[0]),
