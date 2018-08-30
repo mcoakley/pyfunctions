@@ -14,14 +14,22 @@ def phelp(description, clargs=[], portion=40, indent=4, maxwidth=None):
     if portion == 0:
         portion = 40
     # Compute the width of the screen currently
-    rows, columns = os.popen('stty size', 'r').read().split()
-    columns = int(columns)
+    try:
+        # this works on most Linux systems not Windows
+        rows, columns = os.popen('stty size', 'r').read().split()
+        columns = int(columns)
+    except:
+        # just default to a typically safe value...
+        columns = 80
     maxlength = 0
     for clarg in clargs:
         if len(clarg[0]) > maxlength:
             maxlength = len(clarg[0])
     maxlength += 2
+
     # print the description
+    print ""
+
     i = 0
     dwidth = int(columns*portion/100)
     if dwidth < 80:
@@ -37,6 +45,9 @@ def phelp(description, clargs=[], portion=40, indent=4, maxwidth=None):
                 end = dwidth
         print >> sys.stderr, description[i:i+end]
         i += end
+
+    print "" # Add a blank line
+
     # Print arguments
     for clarg in clargs:
         # Figure how much of the first line to print
@@ -59,3 +70,5 @@ def phelp(description, clargs=[], portion=40, indent=4, maxwidth=None):
             print >> sys.stderr, "{}{}{}".format(
                 preface, (' ' * maxlength), clarg[1][ci:ci+end])
             ci += end
+
+    print ""
